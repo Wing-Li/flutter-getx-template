@@ -1,16 +1,12 @@
 # flutter_getx_template
 
 
-
-Language: 中文简体 | [English](README-EN.md)
-
-<code>![visitors](https://visitor-badge.glitch.me/badge?page_id=xieyezi.flutter-getx-template)</code>
 <code>![null safety](https://img.shields.io/badge/null-safety-blue)</code>
-<code>![flutter version](https://img.shields.io/badge/flutter-2.x-blue)</code>
+<code>![flutter version](https://img.shields.io/badge/flutter-3.x-blue)</code>
 <code>![getx version](https://img.shields.io/badge/getx-4.x-blue)</code>
 
 
-基于[`getx`](https://github.com/jonataslaw/getx) 实现的全新`flutter getx` 模版，适用于中大型项目的开发。
+基于[`GetX`](https://github.com/jonataslaw/getx) 实现的全新`flutter getx` 模版，适用于中大型项目的开发。
 
 - 💥 `flutter`最新版本的空安全
 - 🍀 `view` 和 `逻辑` 完全解耦
@@ -21,32 +17,25 @@ Language: 中文简体 | [English](README-EN.md)
 ### 环境
 
 ```
-Flutter 2.2.0 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision b22742018b (3 weeks ago) • 2021-05-14 19:12:57 -0700
-Engine • revision a9d88a4d18
-Tools • Dart 2.13.0
+Framework • revision 41456452f2 (5 weeks ago) • 2024-01-25 10:06:23 -0800
+Engine • revision f40e976bed
+Tools • Dart 3.2.6 • DevTools 2.28.5
 ```
 
 
 ### lib目录划分
 
-
-
 - `common`
   
-此目录用来存放通用模块及其变量，例如`colors`、`langs`、`values`等，例如：
+此目录用来存放通用模块及其变量，例如 `langs`、`values`等，例如：
 
 ```
-├── colors
-│   └── colors.dart
 ├── langs
 │   ├── en_US.dart
 │   ├── translation_service.dart
 │   └── zh_Hans.dart
-└── values
-    ├── cache.dart
-    ├── storage.dart
-    └── values.dart
+├── my_config.dart
+└── my_constants.dart
   
 ```
 
@@ -92,18 +81,17 @@ Tools • Dart 2.13.0
 
 ```
 ├── services.dart
-└── user.dart  // 关于用户的API
+└── user_api.dart  // 关于用户的API
 ```
 
 - `utils`
 
-此目录用来存放一些工具模块，例如 `request` 、`local_storage`等等，例如：
+此目录用来存放一些工具模块，例如 `http_utils` 、`sp_utils`等等，例如：
 
 ```
-├── authentication.dart
-├── local_storage.dart
-├── request.dart
-├── screen_device.dart
+├── http_utils.dart
+├── sp_utils.dart
+├── permission_utils.dart.dart
 └── utils.dart
 ```
 
@@ -145,7 +133,7 @@ $ cd home
 └── home_view.dart
 ```
 
-1. 到`router`文件夹下面添加对应路由:
+#### 1. 到`router`文件夹下面添加对应路由:
 
 ```dart
 // app_routes.dart
@@ -156,6 +144,8 @@ abstract class AppRoutes {
   ...
 }
 ```
+
+#### 2. 创建对应页面:
 
 ```dart
 // app_pages.dart
@@ -174,7 +164,6 @@ class AppPages {
 ```
 
 完成以上步骤，你就可以愉快的开始开发了。
-
 
 
 ### 状态管理
@@ -485,73 +474,6 @@ print(Get.arguments);
 ```
 
 使用 `getx` 的路由它有一个非常好的优点，那就是它是`去context化`的。还记得我们以前被`context` 支配的恐惧吗？ 有了`getx`，它将不复存在。
-
-
-
-### 使用 [monia-cli](https://github.com/xieyezi/monia-cli) 进行开发
-
-我们很高兴，能将 `flutter-getx-template` 加入到 [monia-cli](https://github.com/xieyezi/monia-cli)。
-
-利用 [monia-cli](https://github.com/xieyezi/monia-cli) 新建`flutter`项目：
-
-```
-monia create <project-name>
-```
-
-```
-➜  Desktop monia create flutter_demo
-? Which framework do you want to create Flutter
-? Which flutter version do you want to create null-safety
-? Please input your project description description
-? Please input project version 1.0.0
-
-✨  Creating project in /Users/xieyezi/Desktop/flutter_demo.
-
-🗃  Initializing git repository....
-.......
-⠏ Download template from monia git repository... This might take a while....
-
-🎉  Successfully created project flutter_demo.
-👉  Get started with the following commands:
-
-$ cd flutter_demo
-$ flutter run
-
-                        _                  _ _ 
-  _ __ ___   ___  _ __ (_) __ _        ___| (_)
- | '_ ` _ \ / _ \| '_ \| |/ _` |_____ / __| | |
- | | | | | | (_) | | | | | (_| |_____| (__| | |
- |_| |_| |_|\___/|_| |_|_|\__,_|      \___|_|_|
-```
-
-不仅如此， [monia-cli](https://github.com/xieyezi/monia-cli) 还提供了快速生成一个 `flutter getx` 页面的功能。
-
-假如现在你想生成一个 `order_sending` 新页面，你只需在 `pages` 目录下面输入:
-
-```
-monia init order_sending
-```
-
-```
-➜  pages monia init order_sending
-✨  Generate page in /Users/xieyezi/Desktop/flutter_demo/lib/pages/order_sending.
-⠋ Generating, it's will not be wait long...
-generate order_sending lib success.
-generate /Users/xieyezi/Desktop/flutter_demo/lib/pages/order_sending/order_sending_view.dart file success.
-generate /Users/xieyezi/Desktop/flutter_demo/lib/pages/order_sending/order_sending_controller.dart file success.
-generate /Users/xieyezi/Desktop/flutter_demo/lib/pages/order_sending/order_sending_binding.dart file success.
-
-🎉  Successfully generate page order_sending.
-
-```
-
-### vscode 插件
-
-`monia` 还提供了`vscode` 插件: [monia-vscode-extension](https://marketplace.visualstudio.com/items?itemName=xieyezi.monia-getx-template)
-
-点击左下角的`monia-generate` 文字按钮，输入`pageName`，即可在`pages`目录下新建一个`flutter getx page`：
-
-![example.gif](https://i.loli.net/2021/06/05/rmyXNpOPCLISMu4.gif)
 
 
 ### 官方链接

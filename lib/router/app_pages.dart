@@ -4,8 +4,8 @@ import 'package:flutter_getx_template/pages/home/home_view.dart';
 import 'package:flutter_getx_template/pages/login/login_binding.dart';
 import 'package:flutter_getx_template/pages/login/login_view.dart';
 import 'package:flutter_getx_template/pages/notfound/notfound_view.dart';
-import 'package:flutter_getx_template/pages/proxy/proxy_view.dart';
 import 'package:get/get.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
@@ -31,10 +31,5 @@ class AppPages {
   static final unknownRoute = GetPage(
     name: AppRoutes.NotFound,
     page: () => NotfoundPage(),
-  );
-
-  static final proxyRoute = GetPage(
-    name: AppRoutes.Proxy,
-    page: () => ProxyPage(),
   );
 }

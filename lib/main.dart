@@ -1,5 +1,5 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_getx_template/common/langs/translation_service.dart';
 import 'package:flutter_getx_template/global.dart';
 import 'package:flutter_getx_template/pages/Index/Index_view.dart';
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter With GetX',
+      title: 'Flutter Demo',
       home: IndexPage(),
       initialBinding: IndexBinding(),
       debugShowCheckedModeBanner: false,
@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       unknownRoute: AppPages.unknownRoute,
-      builder: EasyLoading.init(),
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
     );

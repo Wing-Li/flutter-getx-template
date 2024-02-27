@@ -7,6 +7,4 @@ abstract class AppRoutes {
   // notfound
   static const NotFound = '/notfound';
 
-  // setproxy
-  static const Proxy = '/proxy';
 }

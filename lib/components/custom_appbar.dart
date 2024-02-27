@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx_template/common/colors/colors.dart';
+import 'package:flutter_getx_template/res/my_theme.dart';
 
 /// appbar 返回按钮类型
-enum AppBarBackType { Back, Close, None }
+enum AppBarBackType {
+  Back,
+  Close,
+  None,
+}
 
 const double kNavigationBarHeight = 44.0;
 
@@ -14,7 +18,6 @@ class MyAppBar extends AppBar implements PreferredSizeWidget {
     AppBarBackType? leadingType,
     WillPopCallback? onWillPop,
     Widget? leading,
-    Brightness? brightness,
     Color? backgroundColor,
     List<Widget>? actions,
     bool centerTitle = true,
@@ -23,8 +26,7 @@ class MyAppBar extends AppBar implements PreferredSizeWidget {
           key: key,
           title: title,
           centerTitle: centerTitle,
-          brightness: brightness ?? Brightness.light,
-          backgroundColor: backgroundColor ?? AppColors.primaryBackground,
+          backgroundColor: backgroundColor ?? MyTheme.primaryBackground,
           leading: leading ??
               (leadingType == AppBarBackType.None
                   ? Container()
@@ -35,6 +37,7 @@ class MyAppBar extends AppBar implements PreferredSizeWidget {
           actions: actions,
           elevation: elevation ?? 0.5,
         );
+
   @override
   get preferredSize => Size.fromHeight(44);
 }
@@ -75,6 +78,9 @@ class MyTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(_title, style: TextStyle(color: color ?? Color(0xFF222222), fontSize: 18, fontWeight: FontWeight.w500));
+    return Text(
+      _title,
+      style: TextStyle(color: color ?? Color(0xFF222222), fontSize: 18, fontWeight: FontWeight.w500),
+    );
   }
 }

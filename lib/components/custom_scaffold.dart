@@ -18,7 +18,6 @@ class BaseScaffold extends Scaffold {
       : super(
           appBar: appBar ??
               MyAppBar(
-                brightness: Brightness.light,
                 leadingType: leadType ?? AppBarBackType.Back,
                 onWillPop: onWillPop,
                 actions: actions ?? [],

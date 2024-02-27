@@ -2,10 +2,9 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_getx_template/config.dart';
-import 'package:flutter_getx_template/global.dart';
-import 'package:flutter_getx_template/utils/utils.dart';
+import 'package:flutter_getx_template/utils/my_utils.dart';
+import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 
 /*
   * http 操作类
@@ -16,24 +15,25 @@ import 'package:flutter_getx_template/utils/utils.dart';
   * 从3.x升级到 4.x
   * https://github.com/flutterchina/dio/blob/master/migration_to_4.x.md
 */
-class Request {
-  static Request _instance = Request._internal();
-  factory Request() => _instance;
+class HttpUtils {
+  static HttpUtils _instance = HttpUtils._internal();
+
+  factory HttpUtils() => _instance;
 
   late Dio dio;
   CancelToken cancelToken = new CancelToken();
 
-  Request._internal() {
+  HttpUtils._internal() {
     // BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
     BaseOptions options = new BaseOptions(
       // 请求基地址,可以包含子路径
       baseUrl: SERVER_API_URL,
 
       //连接服务器超时时间，单位是毫秒.
-      connectTimeout: 20000,
+      connectTimeout: Duration(seconds: 30),
 
       // 响应流上前后两次接受到数据的间隔，单位为毫秒。
-      receiveTimeout: 5000,
+      // receiveTimeout: Duration(milliseconds: 5000),
 
       // Http请求头.
       headers: {},
@@ -46,6 +46,7 @@ class Request {
     // Cookie管理
     CookieJar cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
+    dio.interceptors.add(LoggyDioInterceptor(requestHeader: true, requestBody: true));
 
     // 添加拦截器
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
@@ -54,15 +55,14 @@ class Request {
     }, onResponse: (response, handler) {
       // 在返回响应数据之前做一些预处理
       return handler.next(response);
-    }, onError: (DioError e, handler) {
+    }, onError: (DioException e, handler) {
       // 当请求失败时做一些预处理
       ErrorEntity eInfo = createErrorEntity(e);
       // 错误提示
-      EasyLoading.showInfo(eInfo.message.toString());
+      MyUtils.showLoading(loadText: eInfo.message.toString());
       // 错误交互处理
       switch (eInfo.code) {
         case 401: // 没有权限 重新登录
-          deleteTokenAndReLogin();
           break;
         default:
       }
@@ -73,7 +73,7 @@ class Request {
   /// 读取token
   Map<String, dynamic> getAuthorizationHeader() {
     var headers;
-    String? token = Global.profile?.token;
+    String? token = null;
     if (token != null) {
       headers = {
         'Authorization': 'JWT $token',
@@ -158,26 +158,26 @@ class Request {
   /*
    * error统一处理
    */
-  ErrorEntity createErrorEntity(DioError error) {
+  ErrorEntity createErrorEntity(DioException error) {
     switch (error.type) {
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         {
           return ErrorEntity(code: -1, message: "请求取消");
         }
-      case DioErrorType.connectTimeout:
+      case DioExceptionType.connectionTimeout:
         {
           return ErrorEntity(code: -1, message: "连接超时");
         }
-      case DioErrorType.sendTimeout:
+      case DioExceptionType.sendTimeout:
         {
           return ErrorEntity(code: -1, message: "请求超时");
         }
 
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.receiveTimeout:
         {
           return ErrorEntity(code: -1, message: "响应超时");
         }
-      case DioErrorType.response:
+      case DioExceptionType.badResponse:
         {
           try {
             int? errCode = error.response?.statusCode;
@@ -244,6 +244,7 @@ class Request {
 class ErrorEntity implements Exception {
   int code;
   String? message;
+
   ErrorEntity({required this.code, this.message});
 
   String toString() {

@@ -1,5 +1,5 @@
 import 'package:flutter_getx_template/pages/login/login_model.dart';
-import 'package:flutter_getx_template/utils/utils.dart';
+import 'package:flutter_getx_template/utils/http_utils.dart';
 
 /// 用户
 class UserAPI {
@@ -7,7 +7,7 @@ class UserAPI {
   static Future<UserLoginResponseModel> login({
     required Map params,
   }) async {
-    var response = await Request().post(
+    var response = await HttpUtils().post(
       '/login/',
       params: params,
     );

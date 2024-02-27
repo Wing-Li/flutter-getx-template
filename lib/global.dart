@@ -1,21 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_getx_template/common/values/values.dart';
-import 'package:flutter_getx_template/pages/login/login_model.dart';
-import 'package:flutter_getx_template/utils/local_storage.dart';
-import 'package:flutter_getx_template/utils/utils.dart';
+import 'package:flutter_getx_template/common/my_constants.dart';
+import 'package:flutter_getx_template/utils/http_utils.dart';
+import 'package:flutter_getx_template/utils/sp_utils.dart';
+import 'package:loggy/loggy.dart';
 
 /// 全局配置
 class Global {
-  /// 用户配置
-  static UserLoginResponseModel? profile = UserLoginResponseModel(token: null);
-
   /// 是否第一次打开
   static bool isFirstOpen = false;
-
-  /// 是否离线登录
-  static bool isOfflineLogin = false;
 
   /// 是否 release
   static bool get isRelease => bool.fromEnvironment("dart.vm.product");
@@ -25,10 +19,12 @@ class Global {
     // 运行初始
     WidgetsFlutterBinding.ensureInitialized();
 
+    Loggy.initLoggy();
+
     // Ruquest 模块初始化
-    Request();
+    HttpUtils();
     // 本地存储初始化
-    await LoacalStorage.init();
+    await SpUtils.getInstance();
 
     // 极光推送初始化
     // await PushManager.setup();
@@ -43,16 +39,9 @@ class Global {
     // );
 
     // 读取设备第一次打开
-    isFirstOpen = !LoacalStorage().getBool(STORAGE_DEVICE_ALREADY_OPEN_KEY);
+    isFirstOpen = !SpUtils.getBool(MyConstants.STORAGE_DEVICE_ALREADY_OPEN_KEY);
     if (isFirstOpen) {
-      LoacalStorage().setBool(STORAGE_DEVICE_ALREADY_OPEN_KEY, true);
-    }
-
-    // 读取离线用户信息
-    var _profileJSON = LoacalStorage().getJSON(STORAGE_USER_PROFILE_KEY);
-    if (_profileJSON != null) {
-      profile = UserLoginResponseModel.fromJson(_profileJSON);
-      isOfflineLogin = true;
+      SpUtils.putBool(MyConstants.STORAGE_DEVICE_ALREADY_OPEN_KEY, true);
     }
 
     // android 状态栏为透明的沉浸
@@ -60,11 +49,5 @@ class Global {
       SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
       SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     }
-  }
-
-  // 持久化 用户信息
-  static Future<bool> saveProfile(UserLoginResponseModel userResponse) {
-    profile = userResponse;
-    return LoacalStorage().setJSON(STORAGE_USER_PROFILE_KEY, userResponse.toJson());
   }
 }

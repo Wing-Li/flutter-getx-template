@@ -17,6 +17,7 @@
 ### 环境
 
 ```
+Flutter 3.16.9 • channel stable • https://github.com/flutter/flutter.git
 Framework • revision 41456452f2 (5 weeks ago) • 2024-01-25 10:06:23 -0800
 Engine • revision f40e976bed
 Tools • Dart 3.2.6 • DevTools 2.28.5
@@ -62,7 +63,6 @@ Tools • Dart 3.2.6 • DevTools 2.28.5
 ├── notfound
 ├── proxy
 └── splash
-
 ```
 
 - `router`
@@ -72,7 +72,6 @@ Tools • Dart 3.2.6 • DevTools 2.28.5
 ```
 ├── app_pages.dart
 └── app_routes.dart
-
 ```
 
 - `services`
@@ -97,20 +96,15 @@ Tools • Dart 3.2.6 • DevTools 2.28.5
 
 ### 开发规范
 
+**创建完成之后，可以查看此项目的配置：https://github.com/Wing-Li/my_flutter_template**
+
 当你需要新建一个页面时，你需要按照以下步骤进行：
 
 > 假设我们现在要创建一个`Home` 页面.
 
-1. 在`pages` 目录下新建`home` 目录：
+#### 1. 在`pages` 目录下新建`home` 目录：
 
-```shell
-// pages
-
-$ mkdir home
-$ cd home
-```
-
-2. 在 `home` 目录下，新建以下四个文件：
+#### 2. 在 `home` 目录下，新建以下四个文件：
 
 - `home_view.dart` : 视图(用来实现页面布局)
 
@@ -133,7 +127,21 @@ $ cd home
 └── home_view.dart
 ```
 
-#### 1. 到`router`文件夹下面添加对应路由:
+#### 推荐一个快捷创建的办法：
+
+1. 使用GetX插件可以快捷创建页面：
+
+https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_001.jpg
+
+2. 在 lib/pages/ 文件中，右键选择`New`->`GetX`，会出现如下页面：
+
+https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_001.jpg
+
+3. 创建成果：
+
+https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_001.jpg
+
+#### 3. 到`router`文件夹下面添加对应路由:
 
 ```dart
 // app_routes.dart
@@ -145,7 +153,7 @@ abstract class AppRoutes {
 }
 ```
 
-#### 2. 创建对应页面:
+#### 4. 创建对应 `GetPage`:
 
 ```dart
 // app_pages.dart
@@ -160,6 +168,7 @@ class AppPages {
     ),
     ...
   ];
+  
 }
 ```
 

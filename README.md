@@ -135,11 +135,11 @@ Tools • Dart 3.2.6 • DevTools 2.28.5
 
 2. 在 lib/pages/ 文件中，右键选择`New`->`GetX`，会出现如下页面：
 
-![](https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_001.jpg)
+![](https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_002.jpg)
 
 3. 创建成果：
 
-![](https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_001.jpg)
+![](https://github.com/Wing-Li/flutter-getx-template/blob/main/imgs/getx_003.jpg)
 
 #### 3. 到`router`文件夹下面添加对应路由:
 

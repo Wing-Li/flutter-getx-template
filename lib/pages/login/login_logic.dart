@@ -1,11 +1,8 @@
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  final count = 0.obs;
-
+class LoginLogic extends GetxController {
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
   }
 
@@ -14,6 +11,4 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {}
-
-  increment() => count.value++;
 }

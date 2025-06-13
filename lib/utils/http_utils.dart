@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:flutter_getx_template/config.dart';
+import 'package:flutter_getx_template/common/my_config.dart';
 import 'package:flutter_getx_template/utils/my_utils.dart';
 import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 
@@ -27,7 +27,7 @@ class HttpUtils {
     // BaseOptions、Options、RequestOptions 都可以配置参数，优先级别依次递增，且可以根据优先级别覆盖参数
     BaseOptions options = new BaseOptions(
       // 请求基地址,可以包含子路径
-      baseUrl: SERVER_API_URL,
+      baseUrl: MyConfig.baseUrl,
 
       //连接服务器超时时间，单位是毫秒.
       connectTimeout: Duration(seconds: 30),

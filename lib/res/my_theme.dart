@@ -5,7 +5,7 @@ class MyTheme {
   static const Color primaryBackground = Color(0xFFF4F6FA);
 
   /// 主文本
-  static const Color primaryText = Color(0xFF2D3142);
+  static const Color primaryText = Color(0xFFFFFFFF);
 
   /// 主文本灰色
   static const Color primaryGreyText = Color(0xFF9B9B9B);
@@ -15,7 +15,7 @@ class MyTheme {
 
   static const Color transparent = Color(0x00000000);
 
-  static const Color bg_page = Color(0xFF010101);
+  static const Color bg_page = Color(0xFFFFFFFF);
   static const Color bg_page_gray = Color(0xFFF3F4F6);
   static const Color bg_tran_block = Color(0xCC000000);
   static const Color bg_btn_block = Color(0xFF202020);
@@ -23,7 +23,8 @@ class MyTheme {
   static const Color bg_block_tran = Color(0x77000000);
   static const Color bg_white_tran = Color(0x33FFFFFF);
   static const Color bg_gray_tran = Color(0x33979797);
-  static const Color bg_tab = Color(0xFF1E1E1E);
+  static const Color bg_tab = Color(0xFF3D3D3D);
+  static const Color bg_tab_active = Color(0xFFD3BB6E);
 
   static const Color block = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);

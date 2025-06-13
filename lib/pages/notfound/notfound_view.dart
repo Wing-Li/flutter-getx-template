@@ -9,12 +9,14 @@ class NotfoundPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("路由没有找到"),
+        title: Text("Route not found"),
       ),
-      body: ListTile(
-        title: Text("返回首页"),
-        subtitle: Text('返回首页'),
-        onTap: () => Get.offAllNamed(AppRoutes.Home),
+      body: Center(
+        child: ListTile(
+          title: Text("Go back home"),
+          subtitle: Text('Go back home'),
+          onTap: () => Get.offAllNamed(AppRoutes.Main),
+        ),
       ),
     );
   }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'splash_logic.dart';
 
 class SplashPage extends StatelessWidget {
-  const SplashPage({Key? key}) : super(key: key);
+  final controller = Get.put(SplashLogic());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text('这是欢迎页👏'),
-        ),
+      body: Center(
+        child: Text("这是欢迎页👏"),
       ),
     );
   }

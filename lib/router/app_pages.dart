@@ -1,20 +1,20 @@
-import 'package:flutter_getx_template/pages/Index/Index_view.dart';
-import 'package:flutter_getx_template/pages/home/home.binding.dart';
-import 'package:flutter_getx_template/pages/home/home_view.dart';
 import 'package:flutter_getx_template/pages/login/login_binding.dart';
 import 'package:flutter_getx_template/pages/login/login_view.dart';
+import 'package:flutter_getx_template/pages/main/main_binding.dart';
+import 'package:flutter_getx_template/pages/main/main_view.dart';
 import 'package:flutter_getx_template/pages/notfound/notfound_view.dart';
+import 'package:flutter_getx_template/pages/splash/splash_view.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
-  static const INITIAL = AppRoutes.Index;
+  static const INITIAL = AppRoutes.Splash;
 
   static final routes = [
     GetPage(
-      name: AppRoutes.Index,
-      page: () => IndexPage(),
+      name: AppRoutes.Splash,
+      page: () => SplashPage(),
     ),
     GetPage(
       name: AppRoutes.Login,
@@ -22,9 +22,9 @@ class AppPages {
       binding: LoginBinding(),
     ),
     GetPage(
-      name: AppRoutes.Home,
-      page: () => HomePage(),
-      binding: HomeBinding(),
+      name: AppRoutes.Main,
+      page: () => MainPage(),
+      binding: MainBinding(),
     ),
   ];
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_getx_template/res/my_styles.dart';
 import 'package:flutter_getx_template/res/my_theme.dart';
 import 'package:flutter_getx_template/utils/my_utils.dart';
-import 'package:flutter_getx_template/view/button.dart';
+import 'package:flutter_getx_template/widget/my_button.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PopupCompleteProfile extends StatefulWidget {
@@ -44,13 +44,14 @@ class _PopupCompleteProfileState extends State<PopupCompleteProfile> {
           ),
           SizedBox(height: 80.h),
           Container(
-            child: btnText(
+            child: MyButton(
               width: double.infinity,
               height: 44,
-              bgColor: MyTheme.white,
-              fontStyle: MyTextStyles.textBold(16),
+              backgroundColor: MyTheme.white,
+              textColor: MyTheme.text_white_block,
+              fontSize: 16,
               text: "Complete Profile",
-              onTap: () {
+              onPressed: () {
                 MyUtils.popPage();
                 widget.onTap.call();
               },

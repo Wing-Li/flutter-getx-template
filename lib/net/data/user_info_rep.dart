@@ -1,9 +1,3 @@
-import 'dart:convert';
-
-UserLoginResponseModel userLoginResponseModelFromJson(String str) => UserLoginResponseModel.fromJson(json.decode(str));
-
-String userLoginResponseModelToJson(UserLoginResponseModel data) => json.encode(data.toJson());
-
 class UserLoginResponseModel {
   UserLoginResponseModel({
     this.token,

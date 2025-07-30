@@ -15,7 +15,7 @@ class SplashLogic extends GetxController {
   // 展示欢迎页，倒计时1.5秒之后进入应用
   Future startCountdownTimer() async {
     await Future.delayed(Duration(milliseconds: 1500), () {
-      Get.toNamed(AppRoutes.Login);
+      Get.offAllNamed(AppRoutes.Login);
     });
   }
 }

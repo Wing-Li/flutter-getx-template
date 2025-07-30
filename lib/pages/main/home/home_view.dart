@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_getx_template/components/my_scaffold.dart';
+import 'package:flutter_getx_template/widget/layout/my_scaffold.dart';
 import 'package:get/get.dart';
 
 import 'home_logic.dart';
@@ -13,7 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyScaffold(
+    return MyHomeScaffold(
+      title: "Home",
       body: Center(
         child: Text("Home"),
       ),

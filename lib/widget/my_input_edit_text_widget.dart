@@ -3,7 +3,7 @@ import 'package:flutter_getx_template/res/my_styles.dart';
 import 'package:flutter_getx_template/res/my_theme.dart';
 import 'package:flutter_getx_template/utils/my_utils.dart';
 
-class InputEditTextWidget extends StatefulWidget {
+class MyInputEditTextWidget extends StatefulWidget {
   final String? title;
   final String inputText;
   final String hintText;
@@ -16,7 +16,7 @@ class InputEditTextWidget extends StatefulWidget {
   final Function(String)? onSubmittedTap;
   final Function? onClearTap;
 
-  const InputEditTextWidget({
+  const MyInputEditTextWidget({
     Key? key,
     this.title,
     this.inputText = "",
@@ -32,10 +32,10 @@ class InputEditTextWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _InputEditTextWidgetState createState() => _InputEditTextWidgetState();
+  _MyInputEditTextWidgetState createState() => _MyInputEditTextWidgetState();
 }
 
-class _InputEditTextWidgetState extends State<InputEditTextWidget> {
+class _MyInputEditTextWidgetState extends State<MyInputEditTextWidget> {
   String _inputText = "";
 
   @override
@@ -45,7 +45,7 @@ class _InputEditTextWidgetState extends State<InputEditTextWidget> {
   }
 
   @override
-  void didUpdateWidget(covariant InputEditTextWidget oldWidget) {
+  void didUpdateWidget(covariant MyInputEditTextWidget oldWidget) {
     _inputText = widget.inputText;
     super.didUpdateWidget(oldWidget);
   }

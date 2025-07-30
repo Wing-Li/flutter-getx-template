@@ -47,7 +47,13 @@ app.*.map.json
 /android/app/.cxx
 /android/.gradle
 /android/.kotlin
+/android/.idea
+/android/app/.cxx
 
+# iOS
+/ios/.symbols
+/ios/Pods
+/ios/Podfile.lock
 
-
-/.vscode
+# IDE
+.idea

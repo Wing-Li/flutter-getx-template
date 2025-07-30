@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_getx_template/res/my_styles.dart';
 import 'package:flutter_getx_template/res/my_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -71,5 +72,17 @@ class _MyAppBarState extends State<MyAppBar> {
         if (widget.onRightTap != null) widget.onRightTap!();
       },
     );
+  }
+}
+
+class MyTitle extends StatelessWidget {
+  final String title;
+  final TextStyle? style;
+
+  const MyTitle({super.key, required this.title, this.style});
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(title, style: style ?? MyTextStyles.title(24, color: MyTheme.text_white_block));
   }
 }

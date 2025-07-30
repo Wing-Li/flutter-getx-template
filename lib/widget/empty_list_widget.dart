@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_getx_template/res/my_styles.dart';
 import 'package:flutter_getx_template/utils/my_utils.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EmptyListWidget extends StatefulWidget {
   final String? title;
   final String content;
   final String imageName;
+  final double? marginTop;
 
   const EmptyListWidget({
     Key? key,
     this.title,
     this.content = "No data",
     this.imageName = "l_emptypage_new",
+    this.marginTop,
   }) : super(key: key);
 
   @override
@@ -23,11 +26,11 @@ class _EmptyListWidgetState extends State<EmptyListWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 114),
+        SizedBox(height: widget.marginTop ?? 0.15.w),
         Image.asset(MyUtils.getImage(widget.imageName)),
         SizedBox(height: 12),
         MyUtils.isEmpty(widget.title)
-            ? Container()
+            ? const SizedBox.shrink()
             : Text(
                 widget.title!,
                 style: MyTextStyles.textWhiteBold(16),

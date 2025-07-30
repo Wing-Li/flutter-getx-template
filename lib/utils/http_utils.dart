@@ -1,10 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter_getx_template/common/my_config.dart';
 import 'package:flutter_getx_template/utils/my_utils.dart';
-import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 
 /*
   * http 操作类
@@ -46,7 +47,11 @@ class HttpUtils {
     // Cookie管理
     CookieJar cookieJar = CookieJar();
     dio.interceptors.add(CookieManager(cookieJar));
-    dio.interceptors.add(LoggyDioInterceptor(requestHeader: true, requestBody: true));
+    // dio.interceptors.add(LoggyDioInterceptor(requestHeader: true, requestBody: true));
+    // 添加自定义网络日志拦截器
+    if (!MyUtils.isProd()) {
+      dio.interceptors.add(_CustomLogInterceptor());
+    }
 
     // 添加拦截器
     dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
@@ -58,8 +63,6 @@ class HttpUtils {
     }, onError: (DioException e, handler) {
       // 当请求失败时做一些预处理
       ErrorEntity eInfo = createErrorEntity(e);
-      // 错误提示
-      MyUtils.showLoading(loadText: eInfo.message.toString());
       // 错误交互处理
       switch (eInfo.code) {
         case 401: // 没有权限 重新登录
@@ -251,4 +254,113 @@ class ErrorEntity implements Exception {
     if (message == null) return "Exception";
     return "Exception: code $code, $message";
   }
+}
+
+logP(String message) {
+  // 在Flutter中，使用developer.log可以避免长日志被截断
+  log(message, name: 'HttpUtils');
+}
+
+// 自定义网络日志拦截器
+class _CustomLogInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    logP('\n┌─────── Request ───────');
+    logP('│ ${options.method.toUpperCase()} ${options.uri}');
+    logP('│');
+    logP('│ Headers:');
+    options.headers.forEach((key, value) {
+      logP('│   $key: $value');
+    });
+
+    if (options.data != null) {
+      logP('│');
+      logP('│ Request Body:');
+      logP('│   ${_formatData(options.data)}');
+    }
+
+    if (options.queryParameters.isNotEmpty) {
+      logP('│');
+      logP('│ Query Parameters:');
+      options.queryParameters.forEach((key, value) {
+        logP('│   $key: $value');
+      });
+    }
+    logP('└─────────────────────');
+
+    super.onRequest(options, handler);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    logP('\n┌─────── Response ───────');
+    logP('│ ${response.requestOptions.method.toUpperCase()} ${response.requestOptions.uri}');
+    logP('│ Status Code: ${response.statusCode}');
+    logP('│');
+    logP('│ Response Headers:');
+    response.headers.forEach((key, values) {
+      logP('│   $key: ${values.join(', ')}');
+    });
+    logP('│');
+    logP('│ Response Body:');
+    logP('│   ${_formatData(response.data)}');
+    logP('└─────────────────────');
+
+    super.onResponse(response, handler);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    logP('\n┌─────── Error ───────');
+    logP('│ ${err.requestOptions.method.toUpperCase()} ${err.requestOptions.uri}');
+    logP('│ Error Type: ${err.type}');
+    logP('│ Error Message: ${err.message}');
+
+    if (err.response != null) {
+      logP('│ Status Code: ${err.response?.statusCode}');
+      logP('│ Response Data:');
+      logP('│   ${_formatData(err.response?.data)}');
+    }
+    logP('└─────────────────────');
+
+    super.onError(err, handler);
+  }
+
+  String _formatData(dynamic data) {
+    if (data == null) return 'null';
+    if (data is String) return data;
+    if (data is Map || data is List) {
+      try {
+        // 使用标准JSON编码，带缩进格式化
+        final encoder = JsonEncoder.withIndent('  ');
+        return encoder.convert(data);
+      } catch (e) {
+        return data.toString();
+      }
+    }
+    return data.toString();
+  }
+
+  // // 分段打印长文本，避免被截断
+  // void _logLongText(String text, String prefix) {
+  //   const int maxLength = 800; // 每段最大长度
+  //   if (text.length <= maxLength) {
+  //     logP('$prefix$text');
+  //     return;
+  //   }
+  //   // 分段打印
+  //   int start = 0;
+  //   int index = 1;
+  //   while (start < text.length) {
+  //     int end = (start + maxLength < text.length) ? start + maxLength : text.length;
+  //     String segment = text.substring(start, end);
+  //     if (index == 1) {
+  //       logP('$prefix$segment');
+  //     } else {
+  //       logP('│   (continued $index) $segment');
+  //     }
+  //     start = end;
+  //     index++;
+  //   }
+  // }
 }

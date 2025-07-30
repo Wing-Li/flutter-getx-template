@@ -1,18 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// Created with Android Studio.
-/// User: maoqitian
-/// Date: 2019/11/27 0027
-/// email: maoqitian068@163.com
-/// des:  loading 效果使用 flutter_spinkit 库
 class LoadingWidget extends StatefulWidget {
-  String loadingText;
-  bool outsideDismiss;
+  final String loadingText;
+  final bool outsideDismiss;
 
-  Function? dismissDialog;
+  final Function? dismissDialog;
 
-  LoadingWidget({
+  const LoadingWidget({
     Key? key,
     this.loadingText = "loading...",
     this.outsideDismiss = true,

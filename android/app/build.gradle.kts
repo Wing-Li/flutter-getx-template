@@ -20,10 +20,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.flutter_getx_template"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 21
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
@@ -33,6 +30,12 @@ android {
     }
 
     signingConfigs {
+        create("dev") {
+            keyAlias = "lyl"
+            keyPassword = "123456"
+            storeFile = file("lyl.jks")
+            storePassword = "123456"
+        }
         create("release") {
             keyAlias = "lyl"
             keyPassword = "123456"
@@ -41,7 +44,7 @@ android {
         }
     }
 
-        // 定义产品风味
+    // 定义产品风味
     flavorDimensions.add("app")
     productFlavors {
         create("dev") {
@@ -55,6 +58,18 @@ android {
             resValue("string", "app_name", "App Pro")
         }
     }
+
+    // 为不同环境配置资源目录
+    // sourceSets {
+    //     getByName("dev") {
+    //         res.srcDirs("src/dev/res")
+    //         resources.srcDirs("src/dev")
+    //     }
+    //     getByName("prod") {
+    //         res.srcDirs("src/prod/res")
+    //         resources.srcDirs("src/prod")
+    //     }
+    // }
 
     buildTypes {
         getByName("debug") {
@@ -80,4 +95,7 @@ flutter {
 
 dependencies {
     implementation("androidx.multidex:multidex:2.0.1")
+    // 添加核心库脱糖依赖
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    
 }

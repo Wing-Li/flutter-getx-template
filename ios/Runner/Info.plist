@@ -4,14 +4,8 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>So you can take pictures and videos when you set your profile and chat with friends.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>So you can select pictures and videos when you set your profile and chat with friends.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>So you can add your favorite pictures when you set your profile and chat with friends.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>App needs to access your location to continue using.</string>
-    <key>NSMotionUsageDescription</key>
-    <string>App needs your motion permissions to continue using.</string>
     <key>NSPhotoLibraryAddUsageDescription</key>
     <string>So you can add your favorite pictures to your profile.</string>
 	<key>CFBundleDevelopmentRegion</key>

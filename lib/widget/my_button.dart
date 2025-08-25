@@ -16,7 +16,6 @@ class MyButton extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Color? backgroundColor;
   final Color? textColor;
-  final Color? borderColor;
   final double? fontSize;
   final FontWeight? fontWeight;
   final double? borderWidth;
@@ -34,7 +33,6 @@ class MyButton extends StatelessWidget {
     this.borderRadius,
     this.backgroundColor,
     this.textColor,
-    this.borderColor,
     this.fontSize,
     this.fontWeight,
     this.borderWidth,
@@ -44,33 +42,20 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDisabled = !enabled || onPressed == null;
 
-    return SizedBox(
-      width: width ?? double.infinity,
-      height: height ?? 56.h,
-      child: ElevatedButton(
-        onPressed: isDisabled ? null : (isLoading ? null : onPressed),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: isDisabled //
+    return GestureDetector(
+      onTap: isDisabled ? null : (isLoading ? null : onPressed),
+      child: Container(
+        width: width ?? double.infinity,
+        height: height ?? 52.w,
+        decoration: BoxDecoration(
+          color: isDisabled //
               ? MyTheme.text_white_gray_light.withValues(alpha: 0.3)
-              : backgroundColor ?? MyTheme.bg_btn_block,
-          foregroundColor: isDisabled //
-              ? MyTheme.text_white_gray_deep
-              : textColor ?? MyTheme.white,
-          elevation: 0,
-          shadowColor: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(8.r),
-            side: borderColor != null
-                ? BorderSide(
-                    color: isDisabled //
-                        ? MyTheme.text_white_gray_light.withValues(alpha: 0.3)
-                        : borderColor!,
-                    width: borderWidth ?? 1.w,
-                  )
-                : BorderSide.none,
-          ),
-          padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+              : backgroundColor ?? MyTheme.main.withValues(alpha: 0.8),
+          borderRadius: borderRadius ?? BorderRadius.circular(16.r),
+          gradient: MyTheme.bg_btn_gradient,
         ),
+        alignment: Alignment.center,
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: _buildButtonContent(),
       ),
     );
@@ -80,7 +65,7 @@ class MyButton extends StatelessWidget {
     final textStyle = MyTextStyles.text(
       fontSize ?? 16.sp,
       isBold: fontWeight == FontWeight.bold,
-      color: textColor ?? MyTheme.white,
+      color: textColor ?? MyTheme.block,
     );
 
     if (isLoading) {
@@ -90,7 +75,7 @@ class MyButton extends StatelessWidget {
         children: [
           SizedBox(
             width: 20.w,
-            height: 20.h,
+            height: 20.w,
             child: CircularProgressIndicator(
               strokeWidth: 2,
               valueColor: AlwaysStoppedAnimation(textStyle.color),

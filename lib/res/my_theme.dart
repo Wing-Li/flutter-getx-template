@@ -1,12 +1,14 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 class MyTheme {
   /// 主背景
   static const Color primaryBackground = Color(0xFFF4F6FA);
 
   /// 主文本
-  static const Color primaryText = Color(0xFFFFFFFF);
-  static const Color main = Color(0xFFFFFFFF);
+  static const Color primaryText = Color(0xFFFEFEFE);
+  static const Color main = Color(0xFFFEFEFE);
 
   /// 主文本灰色
   static const Color primaryGreyText = Color(0xFF9B9B9B);
@@ -15,6 +17,12 @@ class MyTheme {
   static const Color primaryGreyText1 = Color(0xFFE0DDF5);
 
   static const Color transparent = Color(0x00000000);
+
+  static const Gradient bg_btn_gradient = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [const Color(0xFF8BD5FF), const Color(0xFF3BDCB1)],
+  );
 
   static const Color bg_page = Color(0xFFFFFFFF);
   static const Color bg_page_gray = Color(0xFFF3F4F6);

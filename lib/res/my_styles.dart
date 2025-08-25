@@ -19,7 +19,7 @@ class MyTextStyles {
         fontFamily: fontFamily != null && fontFamily.length > 0
             ? fontFamily
             : isBold
-                ? "Avenir-Bold"
+                ? "Avenir-Black"
                 : "Avenir-Medium",
         decoration: textDecoration == null ? TextDecoration.none : textDecoration,
         fontStyle: isItalic ? FontStyle.italic : FontStyle.normal,
@@ -29,7 +29,7 @@ class MyTextStyles {
     double size, {
     bool isFontWeightBold = true,
     Color color = MyTheme.white,
-    String fontFamily = "Avenir-Bold",
+    String fontFamily = "Avenir-Black",
   }) =>
       base(
         size: size,

@@ -6,6 +6,7 @@ class MyTheme {
 
   /// 主文本
   static const Color primaryText = Color(0xFFFFFFFF);
+  static const Color main = Color(0xFFFFFFFF);
 
   /// 主文本灰色
   static const Color primaryGreyText = Color(0xFF9B9B9B);

@@ -1,11 +1,13 @@
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -274,5 +276,41 @@ class MyUtils {
       random.nextInt(255),
       random.nextInt(255),
     );
+  }
+
+  /// 获取缓存文件目录
+  static Future<String> getCacheDir() async {
+    final tempDir = await getTemporaryDirectory();
+    return tempDir.path;
+  }
+
+  /// 创建压缩图片的目标文件路径
+  static Future<String> _getCompressTargetPath() async {
+    final dir = await getCacheDir();
+    final compressDir = Directory('$dir/compressed');
+    if (!await compressDir.exists()) {
+      await compressDir.create(recursive: true);
+    }
+
+    final targetPath = '${compressDir.path}/img_${DateTime.now().millisecondsSinceEpoch}.jpg';
+    return targetPath;
+  }
+
+  /// 图片压缩
+  static Future<XFile?> compressImage(String filePath) async {
+    try {
+      final targetPath = await _getCompressTargetPath();
+
+      final XFile? result = await FlutterImageCompress.compressAndGetFile(
+        filePath,
+        targetPath,
+        quality: 88,
+      );
+
+      return result;
+    } catch (e) {
+      print('图片压缩失败: $e');
+      return null;
+    }
   }
 }

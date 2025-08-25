@@ -6,13 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'main_logic.dart';
-import 'main_state.dart';
 
 class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
   final MainLogic logic = Get.put(MainLogic());
-  final MainState state = Get.find<MainLogic>().state;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +26,10 @@ class MainPage extends StatelessWidget {
   }
 
   Widget _buildBody() {
-    return PageView(
-      physics: NeverScrollableScrollPhysics(), //禁止滑动
-      controller: logic.pageController,
-      children: state.pages,
-    );
+    return Obx(() => IndexedStack(
+          index: logic.currentIndex.value,
+          children: logic.pages,
+        ));
   }
 
   Widget _buildBottomBar() {
@@ -68,28 +65,25 @@ class MainPage extends StatelessWidget {
         return Container(
           height: 50,
           decoration: BoxDecoration(
-            color: state.currentIndex.value == index
-                ? MyTheme.bg_tab_active
-                : null,
+            color: logic.currentIndex.value == index ? MyTheme.bg_tab_active : null,
             borderRadius: BorderRadius.circular(50.w),
           ),
           alignment: Alignment.center,
           child: Opacity(
-            opacity: state.currentIndex.value == index ? 1 : 0.4,
+            opacity: logic.currentIndex.value == index ? 1 : 0.4,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  MyUtils.getImage(state.tabs[index].iconName),
+                  MyUtils.getImage(logic.tabs[index].iconName),
                   height: 24,
                   width: 24,
-                  color:
-                      state.currentIndex.value == index ? Colors.white : null,
+                  color: logic.currentIndex.value == index ? Colors.white : null,
                   fit: BoxFit.fitHeight,
                 ),
                 SizedBox(height: 2),
                 Text(
-                  state.tabs[index].title,
+                  logic.tabs[index].title,
                   style: MyTextStyles.textWhite(10),
                 ),
               ],
@@ -104,10 +98,8 @@ class MainPage extends StatelessWidget {
   }
 
   _setTab(int index) {
-    if (state.currentIndex.value != index) {
+    if (logic.currentIndex.value != index) {
       logic.gotoPage(index);
-
-      state.currentIndex.value = index;
     }
   }
 }

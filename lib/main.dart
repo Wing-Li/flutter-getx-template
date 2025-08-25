@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
-          title: 'zappy'.tr,
+          title: 'App'.tr,
           // 隐藏debug标签
           debugShowCheckedModeBanner: false,
           // 日志

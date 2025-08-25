@@ -12,8 +12,7 @@ class MyButton extends StatelessWidget {
   final bool isLoading;
   final bool enabled;
   final Widget? icon;
-  final EdgeInsetsGeometry? padding;
-  final BorderRadius? borderRadius;
+  final double? borderRadius;
   final Color? backgroundColor;
   final Color? textColor;
   final double? fontSize;
@@ -29,7 +28,6 @@ class MyButton extends StatelessWidget {
     this.isLoading = false,
     this.enabled = true,
     this.icon,
-    this.padding,
     this.borderRadius,
     this.backgroundColor,
     this.textColor,
@@ -51,11 +49,10 @@ class MyButton extends StatelessWidget {
           color: isDisabled //
               ? MyTheme.text_white_gray_light.withValues(alpha: 0.3)
               : backgroundColor ?? MyTheme.main.withValues(alpha: 0.8),
-          borderRadius: borderRadius ?? BorderRadius.circular(16.r),
+          borderRadius: BorderRadius.circular(borderRadius ?? 16.r),
           gradient: MyTheme.bg_btn_gradient,
         ),
         alignment: Alignment.center,
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
         child: _buildButtonContent(),
       ),
     );
@@ -63,7 +60,7 @@ class MyButton extends StatelessWidget {
 
   Widget _buildButtonContent() {
     final textStyle = MyTextStyles.text(
-      fontSize ?? 16.sp,
+      fontSize ?? 15.sp,
       isBold: fontWeight == FontWeight.bold,
       color: textColor ?? MyTheme.block,
     );

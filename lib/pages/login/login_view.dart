@@ -22,7 +22,7 @@ class LoginPage extends GetView<LoginLogic> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () => Get.offAndToNamed(AppRoutes.Main),
-                  child: Text('去首页'),
+                  child: Text('进入首页'),
                 ),
               ],
             ),

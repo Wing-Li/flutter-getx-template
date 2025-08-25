@@ -79,7 +79,7 @@ class MyTitle extends StatelessWidget {
   final String title;
   final TextStyle? style;
 
-  const MyTitle({super.key, required this.title, this.style});
+  const MyTitle(this.title, {super.key, this.style});
 
   @override
   Widget build(BuildContext context) {

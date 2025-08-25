@@ -4,7 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_getx_template/common/my_constants.dart';
 import 'package:flutter_getx_template/utils/http_utils.dart';
 import 'package:flutter_getx_template/utils/sp_utils.dart';
+import 'package:get/get.dart';
 import 'package:loggy/loggy.dart';
+
+import 'services/app_service.dart';
+import 'services/user_service.dart';
 
 /// 全局配置
 class Global {
@@ -26,17 +30,9 @@ class Global {
     // 本地存储初始化
     await SpUtils.getInstance();
 
-    // 极光推送初始化
-    // await PushManager.setup();
-
-    // 语音播报初始化
-    // await TtsManager.setup();
-
-    // 高德地图初始化
-    // await AmapService.instance.init(
-    //   iosKey: 'xxxx',
-    //   androidKey: 'xxxx',
-    // );
+    // 初始化用户服务
+    await Get.putAsync(() async => AppService());
+    await Get.putAsync(() async => UserService());
 
     // 读取设备第一次打开
     isFirstOpen = !SpUtils.getBool(MyConstants.STORAGE_DEVICE_ALREADY_OPEN_KEY);

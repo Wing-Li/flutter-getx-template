@@ -29,7 +29,7 @@ class MyHomeScaffold extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              child: MyTitle(title: title),
+              child: MyTitle(title),
             ),
             Expanded(
               child: body ?? const SizedBox.shrink(),

@@ -9,6 +9,8 @@ import 'package:flutter_getx_template/router/app_pages.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'services/app_service.dart';
+
 void main() => Global.init().then((e) => runApp(MyApp()));
 
 class MyApp extends StatelessWidget {
@@ -34,11 +36,16 @@ class MyApp extends StatelessWidget {
           unknownRoute: AppPages.unknownRoute,
           // Toast
           builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
+          navigatorObservers: [
+            BotToastNavigatorObserver(),
+            RouteObserver(),
+          ],
           // 多语言
-          translations: TranslationService(), // 翻译服务
-          locale: TranslationService.locale, // 默认语言
-          fallbackLocale: TranslationService.fallbackLocale, // 备用语言
+          translations: TranslationService(),
+          // 翻译服务
+          locale: TranslationService.locale,
+          // 默认语言
+          fallbackLocale: TranslationService.fallbackLocale,
           // 主题
           themeMode: ThemeMode.light,
           darkTheme: ThemeData.dark().copyWith(
@@ -54,5 +61,39 @@ class MyApp extends StatelessWidget {
       },
       child: SplashPage(),
     );
+  }
+}
+
+/// 自定义中间件记录路由栈
+class RouteObserver extends GetObserver {
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    if (route.settings.name != null) {
+      AppService.to.addRoute(route);
+    }
+  }
+
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    if (route.settings.name != null) {
+      AppService.to.removeRoute(route);
+    }
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    if (route.settings.name != null) {
+      AppService.to.removeRoute(route); // 这会被执行
+    }
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    if (oldRoute?.settings.name != null) {
+      AppService.to.removeRoute(oldRoute!);
+    }
+    if (newRoute?.settings.name != null) {
+      AppService.to.addRoute(newRoute!);
+    }
   }
 }

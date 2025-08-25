@@ -27,6 +27,8 @@ class MyTheme {
   static const Color bg_tab = Color(0xFF3D3D3D);
   static const Color bg_tab_active = Color(0xFFD3BB6E);
 
+  static const Color bg_sheet = Color(0xFF3D3D3D);
+
   static const Color block = Color(0xFF000000);
   static const Color white = Color(0xFFFFFFFF);
   static const Color line = Color(0xFFB4B4B4);
